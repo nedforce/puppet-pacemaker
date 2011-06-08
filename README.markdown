@@ -1,7 +1,7 @@
 # Overview
 
 This module will allows us to automagically configure HA 
-environments using Heartbeat2 & Pacemaker.  I would strongly recommend reading
+environments using Corosync & Pacemaker.  I would strongly recommend reading
 http://clusterlabs.org/mediawiki/images/f/fb/Configuration_Explained.pdf
 before continuing.
 
