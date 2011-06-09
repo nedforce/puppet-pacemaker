@@ -1,6 +1,18 @@
-define ha::crm::primitive($resource_type, $ensure=present, $monitor_interval, $ignore_dc="false",
-    $priority="", $target_role="", $is_managed="", $resource_stickiness="", $migration_threshold="",
-    $failure_timeout="", $multiple_active="") {
+define ha::crm::primitive(
+  $resource_type,
+  $ensure=present,
+  $monitor_interval,
+  $monitor_timeout,
+  $start_timeout,
+  $stop_timeout,
+  $ignore_dc="false",
+  $priority="",
+  $target_role="",
+  $is_managed="",
+  $resource_stickiness="",
+  $migration_threshold="",
+  $failure_timeout="",
+  $multiple_active="") {
 
     # Sanity checking inputs
     $primitive_name = "Ha::Crm::Primitive[\"${name}\"]"
@@ -40,7 +52,7 @@ define ha::crm::primitive($resource_type, $ensure=present, $monitor_interval, $i
             }
         } else {
             exec { "Creating primitive ${name}":
-                command => "/usr/sbin/crm --force configure primitive ${name} ${resource_type} op monitor interval=\"${monitor_interval}\"",
+                command => "/usr/sbin/crm --force configure primitive ${name} ${resource_type} op monitor interval=\"${monitor_interval}\" timeout=\"${monitor_timeout}\" op start timeout=\"${start_timeout}\" op stop timeout=\"${stop_timeout}\"",
                 unless  => "/usr/sbin/crm_resource -r ${name} -t primitive -q > /dev/null 2>&1",
             }
 
