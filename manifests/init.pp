@@ -24,7 +24,7 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
             # Force x86_64 installation when running x64 as by default it pulls both and has a dependency on 32 bit perl
             "pacemaker":
               name => $architecture ? {
-                x86_64 => "pacemaker.x86_64",
+                x86_64  => "pacemaker.x86_64",
                 default => "pacemaker",
               },
               # Can't lock version and specify architecture currently - see bug #2662 - also, don't really want puppet upgrading a live cluster
@@ -32,12 +32,30 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
               require => Package["corosync"];
             "corosync":
               name => $architecture ? {
-                x86_64 => "corosync.x86_64",
+                x86_64  => "corosync.x86_64",
                 default => "corosync",
               },
               # dependency on our yum::centos::five::clusterlabs class here
-              require => Yumrepo["yum::clusterlabs"],
-              ensure => "installed";
+              require => Yumrepo["clusterlabs"],
+              ensure  => "installed";
+            "augeas":
+              name => $architecture ? {
+                x86_64  => "augeas.x86_64",
+                default => "augeas",
+              },
+              require => Yumrepo["epel"],
+              ensure  => "installed";
+            "augeas-devel":
+              name => $architecture ? {
+                x86_64  => "augeas-devel.x86_64",
+                default => "augeas",
+              },
+              require => Yumrepo["epel"],
+              ensure  => "installed";
+            "ruby-augeas":
+              provider  => 'gem',
+              require   => Yumrepo["epel"],
+              ensure    => "installed";
           }
         }
       }
