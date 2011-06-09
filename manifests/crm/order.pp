@@ -1,4 +1,4 @@
-define ha::crm::order($score, $first_name, $first_action="", $then_name, $then_action="", $ensure = present) {
+define ha::crm::order($score, $first_name, $first_action="", $then_name, $then_action="", $ensure = present, $symmetrical='true') {
 	if($ha_cluster_dc == $hostname) or ($ha_cluster_dc == $fqdn) {
 		if($first_action != "") {
 			$first = "${first_name}:${first_action}"
@@ -19,7 +19,7 @@ define ha::crm::order($score, $first_name, $first_action="", $then_name, $then_a
 			}
 		} else {
 			exec { "Creating ordering contstraint ${name} between ${first_name} and ${then_name}":
-				command => "/usr/sbin/crm configure order ${name} ${score}: ${first} ${then}",
+				command => "/usr/sbin/crm configure order ${name} ${score}: ${first} ${then} symmetrical=${symmetrical}",
 				unless  => "/usr/sbin/crm configure show | grep ${name}",
 			}
 		}
