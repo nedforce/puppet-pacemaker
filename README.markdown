@@ -18,7 +18,6 @@ you a paper cut for each of it's 136 pages.  You have been warned!
 # Cluster Setup
 
     ha::node { "<something>":
-        authkey          => "<ha::authkey index>",
         autojoin         => "<autojoin setting (default: any)>", 
         use_logd         => "<on|off (default: on)>",
         compression      => "<compression method (default: bz2)>",
@@ -26,12 +25,6 @@ you a paper cut for each of it's 136 pages.  You have been warned!
         warntime         => "<seconds (default: 6)>", 
         deadtime         => "<seconds (default: 10)>", 
         initdead         => "<seconds (default: 60)>", 
-
-    ha::authkey { "<index>":
-        method  => "<md5|sha1|crc>",
-        key     => "<key> (not required for crc)",
-        require => Ha::Node["<something>"],
-    }
 
     ha::mcast { "<interface name>":
         group   => "<mcast group>",

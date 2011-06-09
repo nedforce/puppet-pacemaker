@@ -2,21 +2,8 @@ import "crm/primitive.pp"
 import "stonith.pp"
 import "ip.pp"
 
-define ha::authkey($method, $key="") {
-  if($method == "crc") {
-    $changes = ["set ${name}/method ${method}"]
-  } else {
-    $changes = ["set ${name}/method ${method}", "set ${name}/key ${key}"]
-  }
-
-  augeas { "Setting /etc/ha.d/authkeys/${name}":
-    changes => $changes,
-    context => "/files/etc/ha.d/authkeys",
-  }
-}
-
-define ha::node($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2",
-        $keepalive="1", $warntime="5", $deadtime="10", $initdead="60", $authkey,
+define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2",
+        $keepalive="1", $warntime="5", $deadtime="10", $initdead="60",
         $alert_email_address, $logfacility='none', $logfile='/var/log/ha-log', $debugfile='', $debuglevel='0') {
 
   Augeas { context => "/files/etc/ha.d/ha.cf" }
@@ -27,6 +14,7 @@ define ha::node($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2",
     Ubuntu => "/usr/bin/mail",
     default => "/bin/mail"
   }
+  $joined_nodes = join_array_with_spaces($nodes)
 
   case $operatingsystem {
     RedHat,CentOS: {
@@ -89,10 +77,6 @@ define ha::node($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2",
   }
 
   file {
-    "/etc/ha.d/authkeys":
-      ensure => present,
-      mode   => 0600;
-
     # ha.cf, only if it doesn't already exist
     # augeas will control settings, this just ensures that everything gets
     # initialized in the right order
@@ -194,45 +178,6 @@ define ha::node($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2",
 }
 
 define ha::mcast($group, $port=694, $ttl=1) {
-<<<<<<< HEAD
-    augeas { "Configure multicast group on ${name}":
-        context => "/files/etc/ha.d/ha.cf",
-        changes => [
-                    "set mcast[last()+1]/interface ${name}",
-                    "set mcast[last()]/group ${group}",
-                    "set mcast[last()]/port ${port}",
-                    "set mcast[last()]/ttl ${ttl}",
-                   ],
-        onlyif  => "match mcast/interface[.='${name}'] size == 0",
-        require => File["/etc/ha.d/ha.cf"],
-    }
-
-    augeas { "Disable broadcast on ${name}":
-        context => "/files/etc/ha.d/ha.cf",
-        changes => "rm bcast",
-        require => File["/etc/ha.d/ha.cf"],
-    }
-}
-
-define ha::ucast($directives) {
-    # This only works if the ucast nodes are at the end of the file
-    # Need a better way to detect if the current setting is already set
-    # but "onlyif" doesn't lend too much support to our cause
-    augeas { "Configure unicast nodes on ${name}":
-        context => "/files/etc/ha.d/ha.cf",
-        changes => ['rm ucast', augeas_array_to_changes('ucast', $directives)],
-        require => File["/etc/ha.d/ha.cf"],
-    }
-
-    augeas { "Disable broadcast and multicast on ${name}":
-        context => "/files/etc/ha.d/ha.cf",
-        changes => [
-            'rm bcast',
-            'rm mcast',
-        ],
-        require => File["/etc/ha.d/ha.cf"],
-    }
-=======
   augeas { "Configure multicast group on ${name}":
     context => "/files/etc/ha.d/ha.cf",
     changes => [
@@ -248,7 +193,6 @@ define ha::ucast($directives) {
     context => "/files/etc/ha.d/ha.cf",
     changes => "rm bcast"
   }
->>>>>>> Replace heartbeat with corosync, untested, WIP
 }
 
 define ha::ucast($directives) {
