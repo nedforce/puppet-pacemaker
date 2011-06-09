@@ -43,18 +43,15 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
                 x86_64  => "augeas.x86_64",
                 default => "augeas",
               },
-              require => Yumrepo["epel"],
               ensure  => "installed";
             "augeas-devel":
               name => $architecture ? {
                 x86_64  => "augeas-devel.x86_64",
                 default => "augeas",
               },
-              require => Yumrepo["epel"],
               ensure  => "installed";
             "ruby-augeas":
               provider  => 'gem',
-              require   => Yumrepo["epel"],
               ensure    => "installed";
           }
         }
