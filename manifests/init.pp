@@ -124,12 +124,6 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
       owner  => "root",
       group  => "root",
       source => "puppet:///modules/ha/usr/share/augeas/lenses/hacf.aug";
-    "/usr/share/augeas/lenses/haauthkeys.aug":
-      ensure => present,
-      mode   => 0644,
-      owner  => "root",
-      group  => "root",
-      source => "puppet:///modules/ha/usr/share/augeas/lenses/haauthkeys.aug";
   }
 
   augeas {
@@ -181,11 +175,6 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
       require => File["/etc/ha.d/ha.cf"],
       notify  => Exec["restart-email"],
       changes => $joined_nodes ? { '' => "rm node", default => "set node '${joined_nodes}" };
-    "Setting /files/etc/ha.d/authkeys/auth":
-      context => "/files/etc/ha.d/authkeys",
-      changes => "set auth ${authkey}",
-      before  => Ha::Authkey[$authkey],
-      notify  => Exec["restart-email"];
   }
 
   exec { "Send restart email":
