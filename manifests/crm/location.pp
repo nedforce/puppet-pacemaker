@@ -15,11 +15,13 @@ define ha::crm::location($ensure=present, $resource, $score, $rule = '', $host =
 	if($ha_cluster_dc == $hostname) or ($ha_cluster_dc == $fqdn) or ($ignore_dc == "true") {
 		if($ensure == absent) {
 			exec { "Removing location rule ${name}":
-				command => "/usr/sbin/crm configure location delete ${name}"
+				command => "/usr/sbin/crm configure location delete ${name}",
+				onlyif  => "/usr/sbin/crm configure show | grep ${name}",
 			}
 		} else {
 			exec { "Creating location rule ${name}":
-				command => "/usr/sbin/crm configure location ${name} ${resource} ${loc}"
+				command => "/usr/sbin/crm configure location ${name} ${resource} ${loc}",
+				unless  => "/usr/sbin/crm configure show | grep ${name}",
 			}
 		}
 	}
