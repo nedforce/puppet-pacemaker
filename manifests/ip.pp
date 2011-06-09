@@ -1,4 +1,3 @@
-# Note that setting stickiness by default to 1000 will ensure that failback does NOT happen by default - set this to a lower value if this is the desired behaviour
 define ha::ip($address, $resource_stickiness="", $ensure = present) {
 	ha::crm::primitive { "ha-ip-${address}":
 		resource_type   => "ocf:heartbeat:IPaddr2",
