@@ -36,7 +36,7 @@ Puppet::Type.type(:ha_crm_order).provide(:crm) do
       ((resource[:then_action].nil?  && order.attribute("then-action").nil?)  || order.attribute("then-action").value == resource[:then_action]) &&
       order.attribute(:first).value == resource[:first] &&
       order.attribute(:then).value == resource[:then] &&
-      order.attribute(:score).value == resource[:score]
+      order.attribute(:score).value == resource[:score].to_s
     end
   end
 end

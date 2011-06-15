@@ -32,7 +32,7 @@ Puppet::Type.type(:ha_crm_location).provide(:crm) do
         !location.nil? && 
         location.attribute("rsc") == resource[:resource] &&
         !rule.nil? && !expression.nil? &&
-        rule.attribute("score") == resource[:score] &&
+        rule.attribute("score") == resource[:score].to_s &&
         resource[:rule] == "#{expression.attribute('attribute')} #{expression.attribute('operation')} #{expression.attribute('value')}"
       else
         !location.nil? &&
