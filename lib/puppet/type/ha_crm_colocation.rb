@@ -32,6 +32,8 @@ Puppet::Type.newtype(:ha_crm_colocation) do
     desc "Positive values indicate the resources SHOULD run on the same node.
           Negative values indicate the resources SHOULD NOT run on the same.
           Values of inf or -inf change SHOULD to MUST."
+    newvalues('INFINITY', '-INFINITY', /-?\d+/)
+    defaultto('INFINITY')
   end
 
   newparam(:only_run_on_dc, :boolean => true) do

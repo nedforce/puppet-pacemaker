@@ -21,6 +21,8 @@ Puppet::Type.newtype(:ha_crm_location) do
     desc "Positive values indicate the resource CAN run on this node.
           Negative values indicate the resource CAN NOT run on this node.
           Values of +/i infinity (inf) change CAN to MUST."
+    newvalues('INFINITY', '-INFINITY', /-?\d+/)
+    defaultto('INFINITY')
   end
 
   newparam(:rule) do

@@ -30,8 +30,8 @@ Puppet::Type.newtype(:ha_crm_order) do
   newparam(:score) do
     desc "If greater than 0, the constraint is mandatory.  Otherwise it is 
           only a suggestion.  If absent, it will default to infinity (inf)."
-    newvalues(:inf, '-inf', /-?\d+/)
-    defaultto(:inf)
+    newvalues('INFINITY', '-INFINITY', /-?\d+/)
+    defaultto('INFINITY')
   end
 
   newparam(:symmetrical) do
