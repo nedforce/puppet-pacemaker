@@ -1,3 +1,4 @@
+# TODO: Remove crm manifests, use only the native types!!
 import "crm/primitive.pp"
 import "stonith.pp"
 import "ip.pp"

@@ -3,7 +3,7 @@ define ha::util::cleanup($resource, $host="") {
         exec { "Reseting state for resource ${name}":
             command     => "/usr/sbin/crm resource cleanup ${resource} ${host} > /dev/null",
             refreshonly => true,
-			returns     => 1,
+      returns     => 1,
         }
     }
 }

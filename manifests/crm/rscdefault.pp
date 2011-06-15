@@ -1,5 +1,5 @@
 define ha::crm::rscdefault($value, $ensure=present) {
-	
+  
     if($ha_cluster_dc == $fqdn) {
         if($ensure == absent) {
             exec { "Deleting Resource Default ${name}":

@@ -1,18 +1,18 @@
 Puppet::Type.newtype(:ha_crm_colocation) do
-	@desc = "Manages Pacemaker resource colocation constraints."
+  @desc = "Manages Pacemaker resource colocation constraints."
 
-	ensurable
+  ensurable
 
-	newparam(:id) do
-		desc "A unique name for the colocation constraint"
+  newparam(:id) do
+    desc "A unique name for the colocation constraint"
 
-		isnamevar
-	end
+    isnamevar
+  end
 
-	newparam(:resource) do
-		desc "The colocation source.  If the constraint cannot be satisfied, the
+  newparam(:resource) do
+    desc "The colocation source.  If the constraint cannot be satisfied, the
           cluster may decide not to allow the resource to be run at all."
-	end
+  end
 
   newparam(:resource_role) do
     desc "An optional role for the colocation source"
@@ -34,14 +34,14 @@ Puppet::Type.newtype(:ha_crm_colocation) do
           Values of inf or -inf change SHOULD to MUST."
   end
 
-	newparam(:only_run_on_dc, :boolean => true) do
-		desc "In order to prevent race conditions, we generally only want to
-					make changes to the CIB on a single machine (in this case, the
-					Designated Controller)."
+  newparam(:only_run_on_dc, :boolean => true) do
+    desc "In order to prevent race conditions, we generally only want to
+          make changes to the CIB on a single machine (in this case, the
+          Designated Controller)."
 
-		newvalues(:true, :false)
-		defaultto(:true)
-	end
+    newvalues(:true, :false)
+    defaultto(:true)
+  end
 
   validate do
     raise Puppet::Error, "You must specify a colocation source (resource)" unless @parameters.include?(:resource)

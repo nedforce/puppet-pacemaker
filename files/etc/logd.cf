@@ -1,5 +1,5 @@
 debugfile /var/log/ha-debug
-logfile	/var/log/ha-log
+logfile  /var/log/ha-log
 logfacility local7
 entity logd
 useapphbd no
