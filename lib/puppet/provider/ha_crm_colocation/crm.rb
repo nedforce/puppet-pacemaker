@@ -5,7 +5,7 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
   commands :crm => "crm"
 
   def create
-    delete
+    destroy
     if resource[:resource_role]
       rsc = "#{resource[:resource]}:#{resource[:resource_role]}"
     else
@@ -26,6 +26,7 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
   end
 
   def exists?
+    # TODO: fix this code.. it is still broken probably
     if resource[:only_run_on_dc] and  ( Facter.value(:ha_cluster_dc) != Facter.value(:fqdn) or Facter.value(:ha_cluster_dc) != Facter.value(:hostname))
       resource[:ensure] == :present ? true : false
     else

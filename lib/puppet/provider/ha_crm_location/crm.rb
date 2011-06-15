@@ -5,7 +5,7 @@ Puppet::Type.type(:ha_crm_location).provide(:crm) do
   commands :crm => "crm"
 
   def create
-    delete
+    destroy
     if resource[:rule]
       loc = "rule #{resource[:score]}: #{resource[:rule]}"
     else
