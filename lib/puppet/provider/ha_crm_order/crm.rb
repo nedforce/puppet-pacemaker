@@ -1,6 +1,6 @@
 require 'rexml/document'
 
-Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
+Puppet::Type.type(:ha_crm_order).provide(:crm) do
 
   commands :crm => "crm"
 
@@ -25,7 +25,7 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
   end
 
   def exists?
-    if resource[:only_run_on_dc] and ( Facter.value(:ha_cluster_dc) != Facter.value(:fqdn) or Facter.value(:ha_cluster_dc) != Facter.value(:hostname))
+    if resource[:only_run_on_dc] && !(Facter.value(:ha_cluster_dc) == Facter.value(:fqdn) || Facter.value(:ha_cluster_dc) == Facter.value(:hostname)) 
       resource[:ensure] == :present ? true : false
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")

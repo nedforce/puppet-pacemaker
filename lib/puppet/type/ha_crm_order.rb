@@ -52,7 +52,7 @@ Puppet::Type.newtype(:ha_crm_order) do
 
   validate do
     raise Puppet::Error, "You must specify a first resource (first)" unless @parameters.include?(:first)
-    raise Puppet::Error, "You must specify a second resource (then)" unless @parameters.include(:then)
+    raise Puppet::Error, "You must specify a second resource (then)" unless @parameters.include?(:then)
     raise Puppet::Error, "You must specify a score" unless @parameters.include?(:score)
   end
 end
