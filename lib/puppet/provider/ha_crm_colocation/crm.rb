@@ -5,6 +5,7 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
   commands :crm => "crm"
 
   def create
+    delete
     if resource[:resource_role]
       rsc = "#{resource[:resource]}:#{resource[:resource_role]}"
     else

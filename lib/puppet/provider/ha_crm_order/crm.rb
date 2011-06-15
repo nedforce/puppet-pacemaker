@@ -5,6 +5,7 @@ Puppet::Type.type(:ha_crm_order).provide(:crm) do
   commands :crm => "crm"
 
   def create
+    delete
     if resource[:first_action]
       first_rsc = "#{resource[:first]}:#{resource[:first_action]}"
     else
@@ -29,13 +30,13 @@ Puppet::Type.type(:ha_crm_order).provide(:crm) do
       resource[:ensure] == :present ? true : false
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
-      colocation = REXML::XPath.first(cib, "//rsc_order[@id='#{resource[:id]}']")
+      order = REXML::XPath.first(cib, "//rsc_order[@id='#{resource[:id]}']")
 
-      (resource[:first_action].blank? || colocation.attribute("first-action").value != resource[:first_action]) &&
-      (resource[:then_action].blank?  || colocation.attribute("then-action").value != resource[:then_action]) &&
-      colocation.attribute(:first).value != resource[:first] &&
-      colocation.attribute(:then).value != resource[:then] &&
-      colocation.attribute(:score).value != resource[:score]
+      (resource[:first_action].nil? || order.attribute("first-action").value != resource[:first_action]) &&
+      (resource[:then_action].nil?  || order.attribute("then-action").value != resource[:then_action]) &&
+      order.attribute(:first).value != resource[:first] &&
+      order.attribute(:then).value != resource[:then] &&
+      order.attribute(:score).value != resource[:score]
     end
   end
 end
