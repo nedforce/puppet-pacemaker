@@ -5,7 +5,7 @@ Puppet::Type.type(:ha_crm_order).provide(:crm) do
   commands :crm => "crm"
 
   def create
-    destroy
+    destroy rescue true
     if resource[:first_action]
       first_rsc = "#{resource[:first]}:#{resource[:first_action]}"
     else
