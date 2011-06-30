@@ -20,7 +20,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      primitive = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']")
+      primitive = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']")
       !primitive.nil?
     end
   end
@@ -31,7 +31,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='priority']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='priority']")
       if nvpair.nil?
         :absent
       else
@@ -54,7 +54,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='target-role']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='target-role']")
       if nvpair.nil?
         :absent
       else
@@ -77,7 +77,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='is-managed']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='is-managed']")
       if nvpair.nil?
         :absent
       else
@@ -100,7 +100,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='resource-stickiness']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='clone-max']")
       if nvpair.nil?
         :absent
       else
@@ -123,7 +123,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='clone-node-max']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='clone-node-max']")
       if nvpair.nil?
         :absent
       else
@@ -146,7 +146,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='notify']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='notify']")
       if nvpair.nil?
         :absent
       else
@@ -169,7 +169,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='globally-unique']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='globally-unique']")
       if nvpair.nil?
         :absent
       else
@@ -192,7 +192,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='ordered']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='ordered']")
       if nvpair.nil?
         :absent
       else
@@ -215,7 +215,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      nvpair = REXML::XPath.first(resources, "//master[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='interleave']")
+      nvpair = REXML::XPath.first(resources, "//clone[@id='#{resource[:id]}']/meta_attributes/nvpair[@name='interleave']")
       if nvpair.nil?
         :absent
       else

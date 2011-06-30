@@ -20,7 +20,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       resources = REXML::XPath.first(cib, "//cib/configuration/resources")
-      primitive = REXML::XPath.first(resources, "primitive[@id='#{resource[:id]}']")
+      primitive = REXML::XPath.first(resources, "//primitive[@id='#{resource[:id]}']")
       !primitive.nil?
     end
   end
