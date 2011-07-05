@@ -31,14 +31,14 @@ Puppet::Type.type(:ha_crm_location).provide(:crm) do
 
       if resource[:rule]
         !location.nil? && 
-        location.attribute("rsc") == resource[:resource] &&
+        location.attribute("rsc").value == resource[:resource] &&
         !rule.nil? && !expression.nil? &&
-        rule.attribute("score") == resource[:score].to_s &&
+        rule.attribute("score").value == resource[:score].to_s &&
         resource[:rule] == "#{expression.attribute('attribute')} #{expression.attribute('operation')} #{expression.attribute('value')}"
       else
         !location.nil? &&
-        location.attribute("node") == resource[:node] &&
-        location.attribute("rsc") == resource[:resource]
+        location.attribute("node").value == resource[:node] &&
+        location.attribute("rsc").value == resource[:resource]
       end
     end
   end
