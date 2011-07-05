@@ -37,7 +37,7 @@ Puppet::Type.type(:ha_crm_parameter).provide(:crm) do
       if nvpair.nil?
         false
       else
-        if nvpair.attribute(:value).value == resource[:value]
+        if nvpair.attribute(:value).value == resource[:value].to_s
           true
         else
           false

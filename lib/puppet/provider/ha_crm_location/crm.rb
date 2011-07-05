@@ -25,8 +25,8 @@ Puppet::Type.type(:ha_crm_location).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       location = REXML::XPath.first(cib, "//rsc_location[@id='#{resource[:id]}']")
-      rule = location.children.first rescue nil
-      expression = rule.chidlren.first rescue nil
+      rule = location.children.find_all{ |c| c.to_s =~ /^</ }.first rescue nil
+      expression = rule.children.first rescue nil
 
       if resource[:rule]
         !location.nil? && 
