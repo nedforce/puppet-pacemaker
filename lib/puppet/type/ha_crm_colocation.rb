@@ -47,7 +47,7 @@ Puppet::Type.newtype(:ha_crm_colocation) do
 
   validate do
     raise Puppet::Error, "You must specify a colocation source (resource)" unless @parameters.include?(:resource)
-    raise Puppet::Error, "You must specify a colocation target (with_resource)" unless @parameters.include(:with_resource)
+    raise Puppet::Error, "You must specify a colocation target (with_resource)" unless @parameters.include?(:with_resource)
     raise Puppet::Error, "You must specify a score" unless @parameters.include?(:score)
   end
 end

@@ -32,6 +32,7 @@ Puppet::Type.type(:ha_crm_order).provide(:crm) do
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       order = REXML::XPath.first(cib, "//rsc_order[@id='#{resource[:id]}']")
 
+      !order.nil? &&
       ((resource[:first_action].nil? && order.attribute("first-action").nil?) || order.attribute("first-action").value == resource[:first_action]) &&
       ((resource[:then_action].nil?  && order.attribute("then-action").nil?)  || order.attribute("then-action").value == resource[:then_action]) &&
       order.attribute(:first).value == resource[:first] &&
