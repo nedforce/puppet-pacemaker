@@ -1,11 +1,11 @@
-define ha::stonith::drac($drac_ip, $user="stonith", $password, $no_location_rule="false", $cloned="false") {
+define ha::stonith::drac($drac_ip, $user="stonith", $pass, $no_location_rule="false", $cloned="false") {
   if($cloned == "true") {
     $index = ":0"
   } else {
     $index = ""
   }
 
-  package { "ipmitool":
+  package { "OpenIPMI-tools":
     ensure => installed;
   }
 
@@ -29,16 +29,16 @@ define ha::stonith::drac($drac_ip, $user="stonith", $password, $no_location_rule
             value     => $drac_ip,
             ignore_dc => "true",
             require   => Ha_Crm_Primitive["stonith-${fqdn}"];
-        "stonith-${fqdn}-userid":
+        "stonith-${fqdn}-user":
             resource  => "stonith-${fqdn}${index}",
-            parameter => "userid", #Shouldn't this be user
+            parameter => "userid", #Shouldn't this be user?
             value     => $user,
             ignore_dc => "true",
             require   => Ha_Crm_Primitive["stonith-${fqdn}"];
         "stonith-${fqdn}-passwd":
             resource  => "stonith-${fqdn}${index}",
             parameter => "passwd",
-            value     => $password,
+            value     => $pass,
             ignore_dc => "true",
             require   => Ha_Crm_Primitive["stonith-${fqdn}"];
         "stonith-${fqdn}-interface":
