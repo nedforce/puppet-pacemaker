@@ -26,34 +26,17 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
   end
 
   def exists?
-    # TODO: fix this code.. it is still broken probably
-    if resource[:only_run_on_dc] and  ( Facter.value(:ha_cluster_dc) != Facter.value(:fqdn) or Facter.value(:ha_cluster_dc) != Facter.value(:hostname))
-      resource[:ensure] == :present ? true : false
+    if resource[:only_run_on_dc] && !(Facter.value(:ha_cluster_dc) == Facter.value(:fqdn) || Facter.value(:ha_cluster_dc) == Facter.value(:hostname))
+      return resource[:ensure] == :present ? true : false
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       colocation = REXML::XPath.first(cib, "//rsc_colocation[@id='#{resource[:id]}']")
 
-      if resource[:resource_role]
-        if colocation.attribute("rsc-role").value != resource[:resource_role]
-          false
-        end
-      end
-
-      if resource[:with_resource_role]
-        if colocation.attribute("with-rsc-role").value != resource[:with_resource_role]
-          false
-        end
-      end
-
-      if colocation.attribute(:rsc).value != resource[:resource]
-        false
-      elsif colocation.attribute("with-rsc").value != resource[:with_resource]
-        false
-      elsif colocation.attribute(:score).value != resource[:score]
-        false
-      else
-        true
-      end
+      !(resource[:resource_role] && colocation.attribute("rsc-role").value != resource[:resource_role]) &&
+      !(resource[:with_resource_role] && colocation.attribute("with-rsc-role").value != resource[:with_resource_role]) &&
+      !(colocation.attribute(:rsc).value != resource[:resource] || 
+        colocation.attribute("with-rsc").value != resource[:with_resource] || 
+        colocation.attribute(:score).value != resource[:score])
     end
   end
 end
