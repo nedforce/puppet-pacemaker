@@ -1,9 +1,9 @@
 # Depracted. Use drac.pp version instead
-define ha::stonith::ipmi($ipadrr, $user, $pass $ensure = present) {
+define ha::stonith::ipmi($ipadrr, $user, $pass, $ensure = present) {
   ha_crm_primitive {
     "stonith-${name}":
       type   => "stonith:external/ipmi",
-      ensure => $ensure
+      ensure => $ensure;
   }
   
   ha_crm_parameter {

@@ -1,7 +1,7 @@
 define ha::resource::ip($ip, $nic, $resource_stickiness="", $ensure = present) {
   ha_crm_primitive { 
     "${name}":
-      type    => "ocf:heartbeat:IPaddr2"
+      type    => "ocf:heartbeat:IPaddr2",
       monitor_interval => "20",
       ensure           => $ensure,
       resource_stickiness => $resource_stickiness;

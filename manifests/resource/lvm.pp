@@ -1,7 +1,7 @@
 define ha::resource::lvm($vgname, $ensure = present) {
   ha_crm_primitive { 
     "${name}":
-      type    => "ocf:heartbeat:LVM"
+      type    => "ocf:heartbeat:LVM",
       ensure           => $ensure;
   }
   if $ensure != absent {

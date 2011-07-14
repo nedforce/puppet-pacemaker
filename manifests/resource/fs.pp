@@ -1,7 +1,7 @@
-define ha::resource::lvm($device, $fstype = 'ext3', $directory = "/mnt/${name}", $options = 'defaults' $ensure = present) {
+define ha::resource::fs($device, $fstype = 'ext3', $directory = "/mnt/${name}", $options = 'defaults', $ensure = present) {
   ha_crm_primitive {
     "${name}": 
-      type    => "ocf:heartbeat:Filesystem"
+      type    => "ocf:heartbeat:Filesystem",
       ensure  => present;
   }
   ha_crm_parameter { 
@@ -30,3 +30,4 @@ define ha::resource::lvm($device, $fstype = 'ext3', $directory = "/mnt/${name}",
       value     => "${options}",
       require   => Ha_Crm_Primitive["${name}"];
   }
+}
