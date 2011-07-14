@@ -38,7 +38,7 @@ define ha::resource::vm($config, $hypervisor="qemu:///system", $allow_migrate = 
         symmetrical => "false",
         first       => "iscsi-initiator-clone",
         then        => "vm-${name}",
-        require   => Ha_Crm_Primitive["vm-${name}"];
+        require     => [Ha_Crm_Primitive["vm-${name}"], Ha_Crm_Clone["iscsi-initiator-clone"]];
     }
     
     if $target_host != '' {
