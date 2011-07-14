@@ -9,7 +9,7 @@ define ha::resource::lvm($vgname, $ensure = present) {
       ensure    => present,
       resource  => "${name}",
       key       => "volgrpname",
-      value     => '${vgname}',
+      value     => "${vgname}",
       require   => Ha_Crm_Primitive["${name}"];
     }
   }
