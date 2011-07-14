@@ -31,12 +31,14 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")
       colocation = REXML::XPath.first(cib, "//rsc_colocation[@id='#{resource[:id]}']")
-
-      !(resource[:resource_role] && colocation.attribute("rsc-role").value != resource[:resource_role]) &&
-      !(resource[:with_resource_role] && colocation.attribute("with-rsc-role").value != resource[:with_resource_role]) &&
-      !(colocation.attribute(:rsc).value != resource[:resource] || 
-        colocation.attribute("with-rsc").value != resource[:with_resource] || 
-        colocation.attribute(:score).value != resource[:score])
+      
+      colocation && (
+        !(resource[:resource_role] && colocation.attribute("rsc-role").value != resource[:resource_role]) &&
+        !(resource[:with_resource_role] && colocation.attribute("with-rsc-role").value != resource[:with_resource_role]) &&
+        !(colocation.attribute(:rsc).value != resource[:resource] || 
+          colocation.attribute("with-rsc").value != resource[:with_resource] || 
+          colocation.attribute(:score).value != resource[:score])
+      )
     end
   end
 end
