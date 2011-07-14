@@ -7,7 +7,7 @@ Puppet::Type.type(:ha_crm_group).provide(:crm) do
   commands :crm_resource => "crm_resource"
 
   def create
-    crm "-F", "configure", "group", resource[:id], resource[:resources].expand(" ")
+    crm "-F", "configure", "group", resource[:id], resource[:resources].join(" ")
   end
 
   def destroy
