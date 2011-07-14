@@ -1,7 +1,5 @@
-# TODO: Remove crm manifests, use only the native types!!
-import "crm/primitive.pp"
-import "stonith.pp"
-import "ip.pp"
+import "resource/*"
+import "stonith/*"
 
 define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2",
         $keepalive="1", $warntime="5", $deadtime="10", $initdead="60",
