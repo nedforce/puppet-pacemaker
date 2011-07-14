@@ -9,7 +9,7 @@ define ha::resource::drbd($ensure = present) {
         ensure    => $ensure,
         resource  => "${name}-drbd",
         key       => "drbd_resource",
-        value     => '${name}',
+        value     => "${name}",
         require   => Ha_Crm_Primitive["${name}-drbd"];
     }
   }
