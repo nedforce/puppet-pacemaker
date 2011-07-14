@@ -36,12 +36,10 @@ Puppet::Type.type(:ha_crm_parameter).provide(:crm) do
       nvpair = REXML::XPath.first(cib, "//clone[@id='#{resource[:resource]}']/#{type}_attributes/nvpair[@name='#{resource[:key]}']") if nvpair.nil?
       if nvpair.nil?
         false
+      elsif nvpair.attribute(:value).value == resource[:value].to_s
+        true
       else
-        if nvpair.attribute(:value).value == resource[:value].to_s
-          true
-        else
-          false
-        end
+        false
       end
     end
   end
