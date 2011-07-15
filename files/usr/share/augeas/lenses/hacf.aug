@@ -1,12 +1,12 @@
 module Hacf =
   autoload xfm
 
-  let entry = Spacevars.entry
+  let entry             = Spacevars.entry
   let generic_entry_key = Spacevars.entry_re - /mcast/
-  let ws = Util.del_ws_spc
-  let eol = Util.eol
-  let comment = Util.comment
-  let empty = Util.empty
+  let ws                = Util.del_ws_spc
+  let eol               = Util.eol
+  let comment           = Util.comment
+  let empty             = Util.empty
 
   let generic_entry = entry generic_entry_key
   let mcast_entry = [ label "mcast" . Util.del_str "mcast" . ws 
