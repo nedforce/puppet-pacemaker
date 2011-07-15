@@ -12,22 +12,26 @@ define ha::stonith::drac($drac_ip, $user="stonith", $password, $no_location_rule
           resource  => "stonith-${name}",
           key       => "hostname",
           value     => $name,
-          require   => Ha_Crm_Primitive["stonith-${name}"];
+          require   => Ha_Crm_Primitive["stonith-${name}"],
+          ensure  => $ensure;
       "stonith-${name}-ipaddr":
           resource  => "stonith-${name}",
           key       => "ipaddr",
           value     => $drac_ip,
-          require   => Ha_Crm_Primitive["stonith-${name}"];
+          require   => Ha_Crm_Primitive["stonith-${name}"],
+          ensure  => $ensure;
       "stonith-${name}-userid":
           resource  => "stonith-${name}",
           key       => "userid",
           value     => $user,
-          require   => Ha_Crm_Primitive["stonith-${name}"];
+          require   => Ha_Crm_Primitive["stonith-${name}"],
+          ensure  => $ensure;
       "stonith-${name}-passwd":
           resource  => "stonith-${name}",
           key       => "passwd",
           value     => $password,
-          require   => Ha_Crm_Primitive["stonith-${name}"];
+          require   => Ha_Crm_Primitive["stonith-${name}"],
+          ensure  => $ensure;
     }
   }
   
