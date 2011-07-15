@@ -1,50 +1,38 @@
 define ha::stonith::drac($drac_ip, $user="stonith", $password, $no_location_rule="false") {
 
-  ha_crm_primitive { "stonith-${fqdn}":
-    class_name       => "stonith:external/ipmi",
-    monitor_interval => "5s",
-    ignore_dc        => "true",
+  ha_crm_primitive { "stonith-${name}":
+    type             => "stonith:external/ipmi",
     require          => Package["ipmitool"],
   }
 
   ha_crm_parameter {
-    "stonith-${fqdn}-hostname":
-        resource  => "stonith-${fqdn}${index}",
-        parameter => "hostname",
-        value     => $fqdn,
-        ignore_dc => "true",
-        require   => Ha_Crm_Primitive["stonith-${fqdn}"];
-    "stonith-${fqdn}-ipaddr":
-        resource  => "stonith-${fqdn}${index}",
-        parameter => "ipaddr",
+    "stonith-${name}-hostname":
+        resource  => "stonith-${name}",
+        key       => "hostname",
+        value     => $name,
+        require   => Ha_Crm_Primitive["stonith-${name}"];
+    "stonith-${name}-ipaddr":
+        resource  => "stonith-${name}",
+        key       => "ipaddr",
         value     => $drac_ip,
-        ignore_dc => "true",
-        require   => Ha_Crm_Primitive["stonith-${fqdn}"];
-    "stonith-${fqdn}-userid":
-        resource  => "stonith-${fqdn}${index}",
-        parameter => "userid",
+        require   => Ha_Crm_Primitive["stonith-${name}"];
+    "stonith-${name}-userid":
+        resource  => "stonith-${name}",
+        key       => "userid",
         value     => $user,
-        ignore_dc => "true",
-        require   => Ha_Crm_Primitive["stonith-${fqdn}"];
-    "stonith-${fqdn}-passwd":
-        resource  => "stonith-${fqdn}${index}",
-        parameter => "passwd",
+        require   => Ha_Crm_Primitive["stonith-${name}"];
+    "stonith-${name}-passwd":
+        resource  => "stonith-${name}",
+        key       => "passwd",
         value     => $password,
-        ignore_dc => "true",
-        require   => Ha_Crm_Primitive["stonith-${fqdn}"];
-    "stonith-${fqdn}-interface":
-        resource  => "stonith-${fqdn}${index}",
-        parameter => "interface",
-        value     => "lan",
-        ignore_dc => "true",
-        require   => Ha_Crm_Primitive["stonith-${fqdn}"];
+        require   => Ha_Crm_Primitive["stonith-${name}"];
   }
 
-  ha_crm_location { "stonith-${fqdn}-not-on-${fqdn}":
-    resource  => "stonith-${fqdn}",
-    score     => "-inf",
-    host      => $fqdn,
-    ignore_dc => "true",
-    require   => Ha_Crm_Primitive["stonith-${fqdn}"],
+  ha_crm_location { 
+    "stonith-${name}-not-on-${name}":
+      resource  => "stonith-${name}",
+      score     => "-INFINITY",
+      host      => "${name}",
+      require   => Ha_Crm_Primitive["stonith-${name}"],
   }
 }
