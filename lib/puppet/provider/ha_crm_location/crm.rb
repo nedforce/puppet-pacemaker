@@ -37,7 +37,7 @@ Puppet::Type.type(:ha_crm_location).provide(:crm) do
         resource[:rule] == "#{expression.attribute('attribute')} #{expression.attribute('operation')} #{expression.attribute('value')}"
       else
         !location.nil? &&
-        location.attribute("host").value == resource[:host] &&
+        location.attribute("node").value == resource[:host] &&
         location.attribute("rsc").value == resource[:resource]
       end
     end

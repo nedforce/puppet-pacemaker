@@ -6,7 +6,7 @@ define ha::stonith::drac($drac_ip, $user="stonith", $password, $no_location_rule
     ensure  => $ensure;
   }
   
-  if($ensure != absent) {
+  if($ensure != 'absent') {
     ha_crm_parameter {
       "stonith-${name}-hostname":
           resource  => "stonith-${name}",
