@@ -13,13 +13,13 @@ Puppet::Type.newtype(:ha_crm_location) do
     desc "A resource name"
   end
 
-  newparam(:node) do
-    desc "A node's uname"
+  newparam(:host) do
+    desc "A host's uname"
   end
 
   newparam(:score) do
-    desc "Positive values indicate the resource CAN run on this node.
-          Negative values indicate the resource CAN NOT run on this node.
+    desc "Positive values indicate the resource CAN run on this host.
+          Negative values indicate the resource CAN NOT run on this host.
           Values of +/i infinity (inf) change CAN to MUST."
     newvalues('INFINITY', '-INFINITY', /-?\d+/)
     defaultto('INFINITY')
@@ -41,12 +41,12 @@ Puppet::Type.newtype(:ha_crm_location) do
   validate do
     raise Puppet::Error, "You must specify a resource" unless @parameters.include?(:resource)
     raise Puppet::Error, "You must specify a score" unless @parameters.include?(:score)
-    if @parameters.include?(:node) and @parameters.include?(:rule)
-      raise Puppet::Error, "You must specify either a node or a rule, not both."
+    if @parameters.include?(:host) and @parameters.include?(:rule)
+      raise Puppet::Error, "You must specify either a host or a rule, not both."
     end
 
-    if !@parameters.include?(:node) and !@parameters.include?(:rule)
-      raise Puppet::Error, "You must specify either a node or a rule"
+    if !@parameters.include?(:host) and !@parameters.include?(:rule)
+      raise Puppet::Error, "You must specify either a host or a rule"
     end
   end
 end
