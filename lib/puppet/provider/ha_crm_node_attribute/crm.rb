@@ -14,8 +14,8 @@ Puppet::Type.type(:ha_crm_node_attribute).provide(:crm) do
     if resource[:only_run_on_dc] && !(Facter.value(:ha_cluster_dc) == Facter.value(:fqdn) || Facter.value(:ha_cluster_dc) == Facter.value(:hostname)) 
       true
     else
-      val = crm "node", "attribute", resource[:host], "show", resource[:name] rescue nil
-      val == resource[:value]
+      val = crm "node", "attribute", resource[:host], "show", resource[:attribute] rescue nil
+      val == "scope=nodes  name=#{resource[:attribute]} value=#{resource[:value]}"
     end
   end
 end
