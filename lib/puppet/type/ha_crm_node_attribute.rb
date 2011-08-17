@@ -4,16 +4,20 @@ Puppet::Type.newtype(:ha_crm_node_attribute) do
   ensurable
 
   newparam(:name) do
-    desc "The attribute to set"
+    desc "Name"
 
     isnamevar
+  end
+
+  newparam(:attribute) do
+    desc "The attribute to set"
   end
 
   newparam(:value) do
     desc "The value of the attribute"
   end
 
-  newparam(:node) do
+  newparam(:host) do
     desc "The node to set the attribute on"
   end
 
