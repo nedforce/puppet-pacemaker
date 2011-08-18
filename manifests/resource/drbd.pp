@@ -14,47 +14,13 @@ define ha::resource::drbd($ensure = present) {
     }
   }
   ha_crm_ms { "${name}-drbd-ms":
-    ensure    => $ensure,
-    resource  => "${name}-drbd",
-    require   => Ha_Crm_Primitive["${name}-drbd"],
-  }
-  if($ensure != absent) {
-    ha_crm_parameter { 
-      "${name}-drbd-master-max":
-        ensure    => present,
-        meta      => true,
-        resource  => "${name}-drbd-ms",
-        key       => "master-max",
-        value     => '1',
-        require   => Ha_Crm_Ms["${name}-drbd-ms"];
-      "${name}-drbd-master-node-max":
-        ensure    => present,
-        meta      => true,
-        resource  => "${name}-drbd-ms",
-        key       => "master-node-max",
-        value     => '1',
-        require   => Ha_Crm_Ms["${name}-drbd-ms"];
-      "${name}-drbd-clone-max":
-        ensure    => present,
-        meta      => true,
-        resource  => "${name}-drbd-ms",
-        key       => "clone-max",
-        value     => '2',
-        require   => Ha_Crm_Ms["${name}-drbd-ms"];
-      "${name}-drbd-clone-node-max":
-        ensure    => present,
-        meta      => true,
-        resource  => "${name}-drbd-ms",
-        key       => "clone-node-max",
-        value     => '1',
-        require   => Ha_Crm_Ms["${name}-drbd-ms"];
-      "${name}-drbd-notify":
-        ensure    => present,
-        meta      => true,
-        resource  => "${name}-drbd-ms",
-        key       => "notify",
-        value     => 'true',
-        require   => Ha_Crm_Ms["${name}-drbd-ms"];
-    }
+    ensure          => $ensure,
+    resource        => "${name}-drbd",
+    require         => Ha_Crm_Primitive["${name}-drbd"],
+    master_max      => '1',
+    master_node_max => '1',
+    clone_max       => '2',
+    clone_node_max  => '1',
+    notify_clones   => true;
   }
 }

@@ -7,7 +7,11 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   commands :crm_resource => "crm_resource"
 
   def create
-    crm "-F", "configure", "primitive", resource[:id], resource[:type]
+    params = ["-F", "configure", "ms", resource[:id], resource[:resource]]
+    params << "meta"
+    [:priority, :target_role, :is_managed].each do |attr|
+      params << "#{attr.to_s}=#{resource[attr]}" if !resource[attr].nil?
+    crm *params
   end
 
   def destroy
