@@ -11,6 +11,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def destroy
+    crm "resource", "stop", resource[:id]
     crm "-F", "configure", "delete", resource[:id]
   end
 
