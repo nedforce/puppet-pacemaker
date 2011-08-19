@@ -64,7 +64,7 @@ Puppet::Type.newtype(:ha_crm_ms) do
     defaultto :absent
   end
 
-  newproperty(:notify) do
+  newproperty(:notify_clones) do
     desc "When stopping or starting a copy of the clone, tell all the other
           copies beforehand and when the cation was successful.  If absent,
           defaults to false."
