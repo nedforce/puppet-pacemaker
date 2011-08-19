@@ -21,6 +21,6 @@ define ha::resource::drbd($ensure = present) {
     master_node_max => '1',
     clone_max       => '2',
     clone_node_max  => '1',
-    notify          => true;
+    notify_clones   => true;
   }
 }
