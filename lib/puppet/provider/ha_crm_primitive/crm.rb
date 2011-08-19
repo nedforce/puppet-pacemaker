@@ -10,7 +10,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
     params = ["-F", "configure", "primitive", resource[:id], resource[:type]]
     params << "meta"
     [:priority, :target_role, :is_managed].each do |attr|
-      params << "#{attr.to_s}=#{resource[attr]}" if !resource[attr].nil?
+      params << "#{attr.to_s}=#{resource[attr]}" if resource[attr] != "absent"
     end
     crm *params
   end
