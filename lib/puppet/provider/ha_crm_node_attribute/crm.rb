@@ -15,7 +15,7 @@ Puppet::Type.type(:ha_crm_node_attribute).provide(:crm) do
       true
     else
       val = crm "node", "attribute", resource[:host], "show", resource[:attribute] rescue "absent"
-      val.strip == "scope=nodes  name=#{resource[:attribute]} value=#{resource[:value]}"
+      !val.nil? && val.strip == "scope=nodes  name=#{resource[:attribute]} value=#{resource[:value]}"
     end
   end
 end

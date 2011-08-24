@@ -11,7 +11,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
     params << "meta"
     [:priority, :target_role, :is_managed, :clone_max, :clone_node_max, :notify_clones, :globally_unique, :ordered, :interleave].each do |attr|
       attr_name = (attr == :notify_clones) ? "notify" : attr.to_s
-      params << "#{attr_name}=#{resource[attr]}" if resource[attr] != "absent"
+      params << "#{attr_name}=#{resource[attr]}" if resource[attr].to_s != "absent"
     end
     crm *params
   end
