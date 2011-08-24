@@ -48,7 +48,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def priority=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "priority"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "priority", "-v", value
@@ -71,7 +71,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def target_role=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "target-role"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "target-role", "-v", value.to_s.capitalize
@@ -94,7 +94,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def is_managed=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "is-managed"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "is-managed", "-v", value.to_s
@@ -117,7 +117,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def clone_max=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "clone-max"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "clone-max", "-v", value.to_s
@@ -140,7 +140,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def clone_node_max=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "clone-node-max"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "clone-node-max", "-v", value.to_s
@@ -163,7 +163,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def notify_clones=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "notify"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "notify", "-v", value.to_s
@@ -186,7 +186,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def globally_unique=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "globally-unique"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "globally-unique", "-v", value.to_s
@@ -209,7 +209,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def ordered=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "ordered"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "ordered", "-v", value.to_s
@@ -232,7 +232,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
   end
 
   def interleave=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "interleave"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "interleave", "-v", value.to_s

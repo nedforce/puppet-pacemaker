@@ -48,7 +48,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def priority=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "priority"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "priority", "-v", value
@@ -71,7 +71,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def target_role=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "target-role"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "target-role", "-v", value.to_s.capitalize
@@ -94,7 +94,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def is_managed=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "is-managed"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "is-managed", "-v", value.to_s
@@ -117,7 +117,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def resource_stickiness=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "resource-stickiness"
     else
       crm_resource "-m", "-r", reosurce[:id], "-p", "resource-stickiness", "-v", value.to_s
@@ -140,7 +140,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def migration_threshold=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "migration-threshold"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "migration-threshold", "-v", value.to_s
@@ -163,7 +163,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def failure_timeout=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "failure-timeout"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "failure-timeout", "-v", value.to_s
@@ -186,7 +186,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def multiple_active=(value)
-    if value == :absent
+    if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "multiple-active"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "multiple-active", "-v", value.to_s
