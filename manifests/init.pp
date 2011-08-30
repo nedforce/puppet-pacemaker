@@ -49,9 +49,9 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
                 default => "augeas",
               },
               ensure  => "installed";
-            "ruby-augeas":
-              provider  => 'gem',
-              ensure    => "installed";
+            # "ruby-augeas":
+            #   provider  => 'gem',
+            #   ensure    => "installed";
           }
         }
       }

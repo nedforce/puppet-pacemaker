@@ -15,7 +15,7 @@ Puppet::Type.type(:ha_crm_ms).provide(:crm) do
     end
     if metas.size > 0
       params << "meta"
-      params.merge!(metas)
+      params.concat(metas)
     end
     crm *params
   end
