@@ -1,4 +1,4 @@
-define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_address=false, $ensure = present) {
+define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_address=false, $cidr_netmask=nil, $ensure = present) {
   ha_crm_primitive { 
     "${name}":
       type    => "ocf:heartbeat:IPaddr2",
@@ -20,6 +20,12 @@ define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_ad
         key       => "nic",
         value     => "${nic}",
         require   => Ha_Crm_Primitive["${name}"];
+      "${name}-cidr_netmask":
+         ensure    => $cidr_netmask.nil?,
+         resource  => "${name}",
+         key       => "cidr_netmask",
+         value     => "${cidr_netmask}",
+         require   => Ha_Crm_Primitive["${name}"];
       "${name}-unique-clone-address":
          ensure    => present,
          resource  => "${name}",
