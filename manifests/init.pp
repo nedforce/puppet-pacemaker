@@ -82,13 +82,13 @@ define ha::cluster($autojoin="any", $nodes=[], $use_logd="on", $compression="bz2
       }
     }
   }
-  service {
-    "corosync":
-      ensure  => running,
-      hasstatus => true,
-      enable  => true,
-      require   => [Package["pacemaker"], Package["corosync"]];
-  }
+  # service {
+  #    "corosync":
+  #      ensure  => running,
+  #      hasstatus => true,
+  #      enable  => true,
+  #      require   => [Package["pacemaker"], Package["corosync"]];
+  #  }
 
   file {
     # ha.cf, only if it doesn't already exist
