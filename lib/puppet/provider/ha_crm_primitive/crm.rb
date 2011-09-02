@@ -16,6 +16,10 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
       params << "meta"
       params.concat(metas)
     end
+    # operations can only be set with crm command at creation!
+    if resource[:start_timeout].to_s != "absent"
+      params << "op start interval=0 timeout=#{resource[:start_timeout]}"
+    end
     crm *params
   end
 

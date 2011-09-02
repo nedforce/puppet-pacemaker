@@ -92,6 +92,14 @@ Puppet::Type.newtype(:ha_crm_primitive) do
     newvalues(:absent, :block, :stop_only, :stop_start)
     defaultto :absent
   end
+  
+  newproperty(:start_timeout) do
+    desc "What is the timeout value of the start operation. Value in seconds. 
+          Can only be set at creation of primitive due to crappy crm command."
+
+    newvalues(:absent, /\d+/)
+    defaultto :absent
+  end
 
   validate do
     raise Puppet::Error, "You must specify a type for this primitive" unless @parameters.include?(:type)
