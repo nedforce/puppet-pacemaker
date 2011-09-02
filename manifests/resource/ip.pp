@@ -4,6 +4,7 @@ define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_ad
       type    => "ocf:heartbeat:IPaddr2",
       #monitor_interval => "20",
       ensure           => $ensure,
+      require           => Service['corosync'],
       resource_stickiness => $resource_stickiness;
   }
   if $ensure != absent {

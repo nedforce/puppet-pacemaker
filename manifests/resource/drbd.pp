@@ -1,6 +1,7 @@
 define ha::resource::drbd($ensure = present) { 
     ha_crm_primitive { "${name}-drbd":
       type              => "ocf:linbit:drbd",
+      require           => Service['corosync'],
       ensure            => $ensure;
     }
   if $ensure != absent {

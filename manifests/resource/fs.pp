@@ -2,6 +2,7 @@ define ha::resource::fs($device, $fstype = 'ext3', $directory = "/mnt/${name}", 
   ha_crm_primitive {
     "${name}": 
       type    => "ocf:heartbeat:Filesystem",
+      require           => Service['corosync'],
       ensure  => $ensure;
   }
   if ( $ensure != absent ) {
