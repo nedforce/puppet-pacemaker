@@ -93,7 +93,7 @@ Puppet::Type.newtype(:ha_crm_primitive) do
     defaultto :absent
   end
   
-  newproperty(:start_timeout) do
+  newparam(:start_timeout) do
     desc "What is the timeout value of the start operation. Value in seconds. 
           Can only be set at creation of primitive due to crappy crm command."
 
