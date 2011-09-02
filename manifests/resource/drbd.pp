@@ -1,9 +1,9 @@
 define ha::resource::drbd($ensure = present) { 
-  if $ensure != absent {
     ha_crm_primitive { "${name}-drbd":
       type              => "ocf:linbit:drbd",
       ensure            => $ensure;
     }
+  if $ensure != absent {
     ha_crm_parameter { 
       "${name}-drbd-resource":
         ensure    => $ensure,
