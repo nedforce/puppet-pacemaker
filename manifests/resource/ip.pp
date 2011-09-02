@@ -7,6 +7,11 @@ define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_ad
       resource_stickiness => $resource_stickiness;
   }
   if $ensure != absent {
+    if ( $cidr_netmask != nil) {
+      $cidr_netmask_present = present
+    } else {
+      $cidr_netmask_present = absent
+    }
     ha_crm_parameter { 
       "${name}-addr":
         ensure    => present,
@@ -21,7 +26,7 @@ define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_ad
         value     => "${nic}",
         require   => Ha_Crm_Primitive["${name}"];
       "${name}-cidr_netmask":
-         ensure    => $cidr_netmask.nil?,
+         ensure    => $cidr_netmask_present,
          resource  => "${name}",
          key       => "cidr_netmask",
          value     => "${cidr_netmask}",

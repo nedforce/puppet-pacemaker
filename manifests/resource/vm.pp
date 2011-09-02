@@ -31,15 +31,15 @@ define ha::resource::vm($config, $hypervisor="qemu:///system", $allow_migrate = 
         require   => Ha_Crm_Primitive["vm-${name}"];
     }
     
-    ha_crm_order {
-      "vm-${name}-after-initiator":
-        ensure      => present,
-        score       => "INFINITY",
-        symmetrical => "false",
-        first       => "iscsi-initiator-clone",
-        then        => "vm-${name}",
-        require     => [Ha_Crm_Primitive["vm-${name}"], Ha_Crm_Clone["iscsi-initiator-clone"]];
-    }
+    # ha_crm_order {
+    #   "vm-${name}-after-initiator":
+    #     ensure      => present,
+    #     score       => "INFINITY",
+    #     symmetrical => "false",
+    #     first       => "iscsi-initiator-clone",
+    #     then        => "vm-${name}",
+    #     require     => [Ha_Crm_Primitive["vm-${name}"], Ha_Crm_Clone["iscsi-initiator-clone"]];
+    # }
     
     if $target_host != '' {
       ha_crm_location {
