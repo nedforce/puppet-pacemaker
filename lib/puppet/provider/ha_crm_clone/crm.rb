@@ -77,7 +77,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
 
   def target_role=(value)
     if value.to_s == "absent"
-      crm_resource "-m", "-r", resource[:id], "-d", "target-role"
+      #crm_resource "-m", "-r", resource[:id], "-d", "target-role"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "target-role", "-v", value.to_s.capitalize
     end
@@ -100,7 +100,7 @@ Puppet::Type.type(:ha_crm_clone).provide(:crm) do
 
   def is_managed=(value)
     if value.to_s == "absent"
-      crm_resource "-m", "-r", resource[:id], "-d", "is-managed"
+      #crm_resource "-m", "-r", resource[:id], "-d", "is-managed"
     else
       crm_resource "-m", "-r", resource[:id], "-p", "is-managed", "-v", value.to_s
     end
