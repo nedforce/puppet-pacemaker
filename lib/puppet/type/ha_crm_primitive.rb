@@ -102,7 +102,7 @@ Puppet::Type.newtype(:ha_crm_primitive) do
   end
   newparam(:monitor_timeout) do
     desc "What is the timeout value of the monitor operation. Value in seconds. 
-          Only works if both monitor_interval and monitor_timeout are defined.
+          Only works if monitor_interval is defined too.
           Can only be set at creation of primitive due to crappy crm command."
 
     newvalues(:absent, /\d+/)
@@ -110,7 +110,6 @@ Puppet::Type.newtype(:ha_crm_primitive) do
   end
   newparam(:monitor_interval) do
     desc "What is the interval value of the monitor operation. Value in seconds.
-          Only works if both monitor_interval and monitor_timeout are defined.
           Can only be set at creation of primitive due to crappy crm command."
 
     newvalues(:absent, /\d+/)
