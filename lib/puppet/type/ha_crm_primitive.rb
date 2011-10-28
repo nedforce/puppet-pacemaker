@@ -100,6 +100,22 @@ Puppet::Type.newtype(:ha_crm_primitive) do
     newvalues(:absent, /\d+/)
     defaultto :absent
   end
+  newparam(:monitor_timeout) do
+    desc "What is the timeout value of the monitor operation. Value in seconds. 
+          Only works if both monitor_interval and monitor_timeout are defined.
+          Can only be set at creation of primitive due to crappy crm command."
+
+    newvalues(:absent, /\d+/)
+    defaultto :absent
+  end
+  newparam(:monitor_interval) do
+    desc "What is the interval value of the monitor operation. Value in seconds.
+          Only works if both monitor_interval and monitor_timeout are defined.
+          Can only be set at creation of primitive due to crappy crm command."
+
+    newvalues(:absent, /\d+/)
+    defaultto :absent
+  end
 
   validate do
     raise Puppet::Error, "You must specify a type for this primitive" unless @parameters.include?(:type)
