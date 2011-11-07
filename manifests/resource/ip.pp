@@ -1,10 +1,11 @@
-define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_address=false, $cidr_netmask=nil, $network=nil, $monitor_interval="10", $ensure = present) {
+define ha::resource::ip($ip, $nic, $resource_stickiness=absent, $unique_clone_address=false, $cidr_netmask=nil, $network=nil, $monitor_interval = "60", $monitor_timeout = "20", $ensure = present) {
   ha_crm_primitive { 
     "${name}":
-      type    => "ocf:heartbeat:IPaddr2",
-      monitor_interval => "${monitor_interval}",
-      ensure           => $ensure,
-      require           => Service['corosync'],
+      type                => "ocf:heartbeat:IPaddr2",
+      monitor_interval    => "${monitor_interval}",
+      monitor_timeout     => "${monitor_timeout}",
+      ensure              => $ensure,
+      require             => Service['corosync'],
       resource_stickiness => $resource_stickiness;
   }
   if $ensure != absent {
