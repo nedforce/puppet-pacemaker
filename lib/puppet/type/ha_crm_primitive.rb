@@ -115,6 +115,14 @@ Puppet::Type.newtype(:ha_crm_primitive) do
     newvalues(:absent, /\d+/)
     defaultto :absent
   end
+  
+  newparam(:monitor_on_fail) do
+    desc "How to handle monitor failure? ignore, restart, stop?
+          Can only be set at creation of primitive due to crappy crm command."
+
+    newvalues(%w(ignore stop restart fence standby block))
+    defaultto "restart"
+  end
 
   validate do
     raise Puppet::Error, "You must specify a type for this primitive" unless @parameters.include?(:type)
