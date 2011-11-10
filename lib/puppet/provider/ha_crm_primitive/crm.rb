@@ -25,6 +25,9 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
       if (resource[:monitor_timeout].to_s != "absent")
         params << " timeout=#{resource[:monitor_timeout]}"
       end
+      if (resource[:monitor_on_fail].to_s != "absent")
+        params << " on-fail=#{resource[:monitor_on_fail]}"
+      end
     end
     crm *params
   end

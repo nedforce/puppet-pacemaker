@@ -1,10 +1,11 @@
-define ha::resource::fs($device, $fstype = 'ext3', $directory = "/mnt/${name}", $options = 'defaults', $monitor_interval = "60", $monitor_timeout = "20", $ensure = present) {
+define ha::resource::fs($device, $fstype = 'ext3', $directory = "/mnt/${name}", $options = 'defaults', $monitor_interval = "60", $monitor_timeout = "20", $monitor_on_fail = 'restart', $ensure = present) {
   ha_crm_primitive {
     "${name}": 
       type              => "ocf:heartbeat:Filesystem",
       require           => Service['corosync'],
       monitor_interval  => "${monitor_interval}",
       monitor_timeout   => "${monitor_timeout}",
+      monitor_on_fail   => "${monitor_on_fail}",
       ensure            => $ensure;
   }
   if ( $ensure != absent ) {
