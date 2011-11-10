@@ -120,7 +120,7 @@ Puppet::Type.newtype(:ha_crm_primitive) do
     desc "How to handle monitor failure? ignore, restart, stop?
           Can only be set at creation of primitive due to crappy crm command."
 
-    newvalues(:ignore, :stop, :restart, :fence, :standby, :block))
+    newvalues(:ignore, :stop, :restart, :fence, :standby, :block)
     defaultto :restart
   end
 
