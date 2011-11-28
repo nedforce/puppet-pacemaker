@@ -4,7 +4,7 @@ define ha::resource::anything(
   $cmdline_options  = "",
   $logfile          = "",
   $errlogfile       = "",
-  $user             = "",
+  $user             = "root",
   $monitor_hook     = "ps -p `cat /var/run/anything_${name}.pid`",
   $monitor_interval = "60",
   $monitor_timeout  = "20",
