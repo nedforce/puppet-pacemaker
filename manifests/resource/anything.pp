@@ -1,12 +1,14 @@
 define ha::resource::anything(
   $binfile,
-  $workdir         = "",
-  $cmdline_options = "",
-  $logfile         = "",
-  $errlogfile      = "", 
+  $workdir          = "",
+  $cmdline_options  = "",
+  $logfile          = "",
+  $errlogfile       = "",
+  $user             = "",
+  $monitor_hook     = "ps -p `cat /var/run/anything_${name}.pid`",
   $monitor_interval = "60",
-  $monitor_timeout = "20",
-  $monitor_on_fail = 'restart', 
+  $monitor_timeout  = "20",
+  $monitor_on_fail  = 'restart', 
   $ensure = present) {
     ha_crm_primitive { "${name}":
       type    => "ocf:heartbeat:anything",
@@ -32,6 +34,12 @@ define ha::resource::anything(
           resource  => "${name}",
           key       => "cmdline_options",
           value     => "${cmdline_options}",
+          require   => Ha_Crm_Primitive["${name}"];
+        "${name}-user":
+          ensure    => present,
+          resource  => "${name}",
+          key       => "user",
+          value     => "${user}",
           require   => Ha_Crm_Primitive["${name}"];
         "${name}-logfile":
           ensure    => present,
