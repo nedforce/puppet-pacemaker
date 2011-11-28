@@ -9,7 +9,8 @@ define ha::resource::anything(
   $monitor_on_fail = 'restart', 
   $ensure = present) {
     ha_crm_primitive { "${name}":
-      type            => "ocf:heartbeat:anything",
+      type    => "ocf:heartbeat:anything",
+      ensure => $ensure;
     }
     
     if ( $ensure != absent ) {
