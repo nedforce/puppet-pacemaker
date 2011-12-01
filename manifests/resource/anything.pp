@@ -53,6 +53,12 @@ define ha::resource::anything(
           key       => "errlogfile",
           value     => "${errlogfile}",
           require   => Ha_Crm_Primitive["${name}"];
+        "${name}-monitor_hook":
+          ensure    => present,
+          resource  => "${name}",
+          key       => "monitor_hook",
+          value     => "${monitor_hook}",
+          require   => Ha_Crm_Primitive["${name}"];
       }
     }
 }
