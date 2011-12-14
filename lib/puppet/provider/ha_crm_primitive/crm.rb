@@ -72,7 +72,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def target_role
-    if resource[:only_run_on_dc] && !(Facter.value(:ha_cluster_dc) == Facter.value(:fqdn) || Facter.value(:ha_cluster_dc) == Facter.value(:hostname))  
+    if resource[:only_run_on_dc] && !(Facter.value(:ha_cluster_dc) == Facter.value(:fqdn) || Facter.value(:ha_cluster_dc) == Facter.value(:hostname))
       resource[:target_role]
     else
       cib = REXML::Document.new File.open("/var/lib/heartbeat/crm/cib.xml")

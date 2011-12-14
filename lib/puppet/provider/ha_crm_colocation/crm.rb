@@ -33,8 +33,8 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
       colocation = REXML::XPath.first(cib, "//rsc_colocation[@id='#{resource[:id]}']")
       
       colocation && (
-        !(resource[:resource_role] && colocation.attribute("rsc-role").value != resource[:resource_role]) &&
-        !(resource[:with_resource_role] && colocation.attribute("with-rsc-role").value != resource[:with_resource_role]) &&
+        (!resource[:resource_role] || colocation.attribute("rsc-role").value == resource[:resource_role]) &&
+        (!resource[:with_resource_role] || colocation.attribute("with-rsc-role").value == resource[:with_resource_role]) &&
         !(colocation.attribute(:rsc).value != resource[:resource] || 
           colocation.attribute("with-rsc").value != resource[:with_resource] || 
           colocation.attribute(:score).value != resource[:score])
