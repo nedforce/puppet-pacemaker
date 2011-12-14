@@ -37,7 +37,7 @@ Puppet::Type.type(:ha_crm_colocation).provide(:crm) do
         (!resource[:with_resource_role] || colocation.attribute("with-rsc-role").value == resource[:with_resource_role]) &&
         !(colocation.attribute(:rsc).value != resource[:resource] || 
           colocation.attribute("with-rsc").value != resource[:with_resource] || 
-          colocation.attribute(:score).value != resource[:score])
+          !colocation.attribute(:score).value =~ resource[:score])
       )
     end
   end

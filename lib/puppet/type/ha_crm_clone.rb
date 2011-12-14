@@ -38,7 +38,7 @@ Puppet::Type.newtype(:ha_crm_clone) do
             * master -  Allow the resource to be started and promoted to Master"
 
     newvalues(:absent, :stopped, :started, :master)
-    defaultto :started
+    # defaultto :started
   end
 
   newproperty(:is_managed) do
