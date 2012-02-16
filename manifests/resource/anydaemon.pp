@@ -12,10 +12,10 @@ define ha::resource::anydaemon(
   $ensure = present) {
     ha_crm_primitive { "${name}":
       type             => "ocf:heartbeat:anydaemon",
-      ensure           => $ensure;
+      ensure           => $ensure,
       monitor_interval => "${monitor_interval}",
       monitor_timeout  => "${monitor_timeout}",
-      monitor_on_fail  => "${monitor_on_fail}",
+      monitor_on_fail  => "${monitor_on_fail}";
     }
     
     if ( $ensure != absent ) {
