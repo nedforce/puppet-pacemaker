@@ -58,7 +58,7 @@ define ha::resource::anydaemon(
           require   => Ha_Crm_Primitive["${name}"];
       }
       if ($stop_command != "") {
-        file { "${name}-stop_command":
+        ha_crm_parameter { "${name}-stop_command":
           ensure    => present,
           resource  => "${name}",
           key       => "stop_command",
