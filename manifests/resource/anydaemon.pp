@@ -56,12 +56,15 @@ define ha::resource::anydaemon(
           key       => "monitor_hook",
           value     => "${monitor_hook}",
           require   => Ha_Crm_Primitive["${name}"];
-        "${name}-stop_command":
+      }
+      if ($stop_command != "") {
+        file { "${name}-stop_command":
           ensure    => present,
           resource  => "${name}",
           key       => "stop_command",
           value     => "${stop_command}",
           require   => Ha_Crm_Primitive["${name}"];
+        }
       }
     }
 }
