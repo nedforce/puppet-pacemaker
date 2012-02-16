@@ -2,14 +2,13 @@ define ha::resource::anydaemon(
   $binfile,
   $workdir          = "",
   $cmdline_options  = "",
-  $logfile          = "",
-  $errlogfile       = "",
+  $pidfile          = "/tmp/anydaemon_${name}.pid",
   $user             = "root",
-  $monitor_hook     = "ps -p `cat /var/run/anydaemon_${name}.pid`",
+  $monitor_hook     = "ps -p `cat ${pidfile}`",
   $monitor_interval = "60",
   $monitor_timeout  = "20",
   $monitor_on_fail  = 'restart', 
-  $stop_command,
+  $stop_command     = "",
   $ensure = present) {
     ha_crm_primitive { "${name}":
       type    => "ocf:heartbeat:anydaemon",
@@ -42,17 +41,11 @@ define ha::resource::anydaemon(
           key       => "user",
           value     => "${user}",
           require   => Ha_Crm_Primitive["${name}"];
-        "${name}-logfile":
+        "${name}-pidfile":
           ensure    => present,
           resource  => "${name}",
-          key       => "logfile",
-          value     => "${logfile}",
-          require   => Ha_Crm_Primitive["${name}"];
-        "${name}-errlogfile":
-          ensure    => present,
-          resource  => "${name}",
-          key       => "errlogfile",
-          value     => "${errlogfile}",
+          key       => "pidfile",
+          value     => "${pidfile}",
           require   => Ha_Crm_Primitive["${name}"];
         "${name}-monitor_hook":
           ensure    => present,
