@@ -87,11 +87,12 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
   end
 
   def target_role=(value)
-    if value.to_s == "absent"
-      #crm_resource "-m", "-r", resource[:id], "-d", "target-role"
-    else
-      crm_resource "-m", "-r", resource[:id], "-p", "target-role", "-v", value.to_s.capitalize
-    end
+    # it should not touch target_role, especially when value is empty string
+    # if value.to_s == "absent"
+    #   #crm_resource "-m", "-r", resource[:id], "-d", "target-role"
+    # else
+    #   crm_resource "-m", "-r", resource[:id], "-p", "target-role", "-v", value.to_s.capitalize
+    # end
   end
 
   def is_managed
