@@ -58,7 +58,7 @@ Puppet::Type.newtype(:ha_crm_primitive) do
           This defaults to 'inherited', which is the value of 
           resource-stickiness in the rsc_defaults section"
 
-    newvalues(:absent, /\d+/)
+    newvalues(:absent, 'INFINITY', '-INFINITY', /\d+/)
     defaultto :absent
   end
 
