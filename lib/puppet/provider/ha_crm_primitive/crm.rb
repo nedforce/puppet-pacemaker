@@ -137,7 +137,7 @@ Puppet::Type.type(:ha_crm_primitive).provide(:crm) do
     if value.to_s == "absent"
       crm_resource "-m", "-r", resource[:id], "-d", "resource-stickiness"
     else
-      crm_resource "-m", "-r", reosurce[:id], "-p", "resource-stickiness", "-v", value.to_s
+      crm_resource "-m", "-r", resource[:id], "-p", "resource-stickiness", "-v", value.to_s
     end
   end
 
